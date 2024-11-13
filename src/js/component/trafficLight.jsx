@@ -14,13 +14,20 @@ const TrafficLight = () => {
 	]);
 
 	const [selectedColor, setSelectedColor] = useState(null)
-	
+	const [inputValue, setInputValue] = useState("")
 	const handleColorClick = (color) => {
 		setSelectedColor(color)
 	}
 
 	const addColors = (name, className) => {
 			setColor([...color, {name, class: className}])	
+	}
+
+	const deleteItem = () => {
+		if (inputValue.trim() === "") return;
+		const newArr = color.filter((e) => e.name !== inputValue)
+		setColor(newArr)
+		setInputValue("")
 	}
 
 	return (
@@ -37,9 +44,16 @@ const TrafficLight = () => {
 				></button>
 			))}
 		</div>
-		<button className="btn btn-primary mt-5" onClick={() => addColors('Purple', 'purple-button')}>
-			Color Purple
+		<button className="btn btn-primary mt-5" onClick={() => addColors('purple', 'purple-button')}>
+			Add Purple color
 		</button>
+		</div>
+		<div className="d-flex flex-column align-items-center mt-5">
+			<input className="mb-3" style={{width: '120px'}} type="text"
+			value={inputValue}
+			onChange={(e) => setInputValue(e.target.value)}
+			/>
+			<button className="btn btn-danger" onClick={deleteItem}>Delete Color</button>
 		</div>
 		</>
 	);
