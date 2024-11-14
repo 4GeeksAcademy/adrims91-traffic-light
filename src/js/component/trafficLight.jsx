@@ -13,19 +13,25 @@ const TrafficLight = () => {
 		{name: 'green', class: 'bg-success'}
 	]);
 
+	
 	const [selectedColor, setSelectedColor] = useState(null)
 	const [inputValue, setInputValue] = useState("")
 	const handleColorClick = (color) => {
 		setSelectedColor(color)
 	}
 
+	
+	
 	const addColors = (name, className) => {
-			setColor([...color, {name, class: className}])	
+		const existentColor = color.find(item => item.name === name)
+		if (!existentColor) setColor([...color, {name, class: className}])
 	}
+
+
 
 	const deleteItem = () => {
 		if (inputValue.trim() === "") return;
-		const newArr = color.filter((e) => e.name !== inputValue)
+		const newArr = color.filter((e) => e.name !== inputValue.toLowerCase())
 		setColor(newArr)
 		setInputValue("")
 	}
@@ -54,6 +60,7 @@ const TrafficLight = () => {
 			onChange={(e) => setInputValue(e.target.value)}
 			/>
 			<button className="btn btn-danger" onClick={deleteItem}>Delete Color</button>
+			
 		</div>
 		</>
 	);
